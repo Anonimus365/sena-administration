@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Area;
+use App\Models\TrainingCenter;
 use Illuminate\Http\Request;
 
-class AreaController extends Controller
+class TrainingCenterController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $areas = Area::all();
-        return response()->json($areas);    
     }
 
     /**
@@ -29,13 +27,7 @@ class AreaController extends Controller
      */
     public function store(Request $request)
     {
-        $area = Area::create(
-            $request->validate([
-                'name' => 'required|max:100'
-            ])
-        );
 
-        return response()->json($area);
     }
 
     /**
@@ -43,15 +35,12 @@ class AreaController extends Controller
      */
     public function show($id)
     {
-        $area = Area::findOrFail($id);
-
-        return response()->json($area);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Area $area)
+    public function edit(TrainingCenter $trainingCenter)
     {
         //
     }
@@ -59,7 +48,7 @@ class AreaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Area $area)
+    public function update(Request $request, TrainingCenter $trainingCenter)
     {
         //
     }
@@ -67,7 +56,7 @@ class AreaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Area $area)
+    public function destroy(TrainingCenter $trainingCenter)
     {
         //
     }

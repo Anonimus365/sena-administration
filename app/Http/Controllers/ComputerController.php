@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Area;
+use App\Models\Computer;
+use Illuminate\Auth\Events\Validated;
+use Illuminate\Http\Client\ResponseSequence;
 use Illuminate\Http\Request;
 
-class AreaController extends Controller
+class ComputerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $areas = Area::all();
-        return response()->json($areas);    
+        $computers = Computer::all();
+        return response()->json($computers);
     }
 
     /**
@@ -21,7 +23,7 @@ class AreaController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -29,13 +31,12 @@ class AreaController extends Controller
      */
     public function store(Request $request)
     {
-        $area = Area::create(
+        $computer = Computer::create(
             $request->validate([
-                'name' => 'required|max:100'
+                'number',
+                'brand'
             ])
         );
-
-        return response()->json($area);
     }
 
     /**
@@ -43,15 +44,14 @@ class AreaController extends Controller
      */
     public function show($id)
     {
-        $area = Area::findOrFail($id);
-
-        return response()->json($area);
+        $computer = Computer::findOrFail($id);
+        return response()->json($computer);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Area $area)
+    public function edit(Computer $computer)
     {
         //
     }
@@ -59,7 +59,7 @@ class AreaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Area $area)
+    public function update(Request $request, Computer $computer)
     {
         //
     }
@@ -67,7 +67,7 @@ class AreaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Area $area)
+    public function destroy(Computer $computer)
     {
         //
     }
