@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\ComputerController;
-use App\Models\TrainingCenter;
+use App\Http\Controllers\TrainingCenterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -12,6 +12,6 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('areas', AreaController::class);
 
-Route::apiResource('centers', TrainingCenter::class);
+Route::apiResource('centers', TrainingCenterController::class);
 
 Route::apiResource('computers', ComputerController::class);

@@ -12,6 +12,8 @@ class TrainingCenterController extends Controller
      */
     public function index()
     {
+        $centers = TrainingCenter::all();
+        return response()->json($centers);    
     }
 
     /**
