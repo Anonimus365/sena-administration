@@ -6,33 +6,30 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Course extends Model
+class Apprentice extends Model
 {
-    /** @use HasFactory<\Database\Factories\CourseFactory> */
+    /** @use HasFactory<\Database\Factories\ApprenticeFactory> */
     use HasFactory;
 
-    public function area(){
-        return $this->belongsTo(Area::class);
+    public function course(){
+        return $this->belongsTo(Course::class);
     }
 
-    public function training_center(){
-        return $this->belongsTo(TrainingCenter::class);
-    }
-
-    public function apprentices(){
-        return $this->hasMany(Apprentice::class);
+    public function computer(){ 
+        return $this->belongsTo(Computer::class);
     }
 
     protected $fillable = [
-        'course_number',
-        'day',
-        'area_id',
-        'training_center_id'
+        'name', 
+        'email',
+        'cell_number',
+        'course_id',
+        'computer_id',
     ];
 
     //LISTAS BLANCAS
-    protected $allowIncluded = ['areas', 'training_center', 'apprentices']; //las posibles Querys que se pueden realizar
-    protected $allowFilter = ['id', 'brand'];
+    protected $allowIncluded = ['computers', 'courses']; //las posibles Querys que se pueden realizar
+    protected $allowFilter = ['id', 'name'];
 
     public function scopeIncluded(Builder $query)
     {

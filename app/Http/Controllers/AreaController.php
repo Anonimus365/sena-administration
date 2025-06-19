@@ -3,45 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
+use App\Services\AreaService;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 
 class AreaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $areaService;
+
+    public function __construct(AreaService $areaService)
+    {
+        $this->areaService = $areaService;
+    }
+
+    // INDEX
     public function index()
     {
-        $areas = Area::included()->get();
-        // $areas = Area::all();
+        $areas = Area::query()
+        ->included()
+        ->filter()
+        ->get();
         return response()->json($areas);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    // STORE
     public function store(Request $request)
     {
-        $area = Area::create(
-            $request->validate([
-                'name' => 'required|max:100'
-            ])
-        );
+        $validated = $request->validate([
+            'name' => 'required|string|max:100',
+        ]);
 
-        return response()->json($area);
+        $area = $this->areaService->store($validated);
+        return response()->json($area, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // SHOW
     public function show($id)
     {
         $area = Area::findOrFail($id);
@@ -49,25 +45,13 @@ class AreaController extends Controller
         return response()->json($area);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Area $area)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
+    // UPDATE
     public function update(Request $request, Area $area)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // DESTROY
     public function destroy(Area $area)
     {
         //

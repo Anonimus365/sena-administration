@@ -3,46 +3,51 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Services\CourseService;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $courseService;
+
+    public function __construct(CourseService $courseService)
+    {
+        $this->courseService = $courseService;
+    }
+
     public function index()
     {
-        $courses = Course::all();
+        $courses = Course::query()
+        ->included()
+        ->filter()
+        ->get();
+
         return response()->json($courses);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'course_number' => 'required|string',
+            'day' => 'required|date',
+            'area_id' => 'required',
+            'training_center_id' => 'required',
+        ]);
+
+        $course = $this->courseService->store($validated);
+        return response()->json($course, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //
